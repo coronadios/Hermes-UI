@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes UI — Chat</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<div class="header-art"><img src="assets/svg/hermes_logo.svg" alt="Hermes art" width="40" height="40"></div>
+<div><h1>Hermes UI — Chat</h1><p style="font-size:.8rem;color:#9aa2ad">25 agentes · principal + seleccionados · automático</p></div>
+</header>
+<main class="container chat-wrap">
+  <aside class="panel" aria-label="Agentes">
+    <h2>AGENTES</h2>
+    <select class="agent-select" id="agentSelect" aria-label="Elegir agente"></select>
+    <div class="agent-detail" id="agentInfo"><strong>Principal</strong> — Usuario. Contexto activo y decisiones.</div>
+    <div style="font-size:.8rem;color:#6b7280;margin-top:.25rem">Selecciona un agente para ver su función y hablar con él.</div>
+  </aside>
+  <section class="panel" aria-label="Chat" style="display:flex;flex-direction:column;height:520px">
+    <div class="chat-area" id="chatArea" aria-live="polite" aria-atomic="false"></div>
+    <form class="chat-input" onsubmit="sendMsg(event)" aria-label="Enviar mensaje">
+      <input id="msgInput" type="text" placeholder="Habla con el agente..." autocomplete="off" aria-label="Mensaje" />
+      <button type="submit" aria-label="Enviar">Enviar</button>
+    </form>
+  </section>
+</main>
+<section class="container">
+  <h2 style="font-size:1.1rem;margin-bottom:.5rem;color:var(--accent)">Agente principal</h2>
+  <div style="font-size:.9rem;color:#9aa2ad;line-height:1.5">Corona es el agente principal: toma decisiones, confirma acciones de sistema, maneja el contexto de Hermes UI. Los 25 agentes trabajan a su alrededor sin detenerlo.</div>
+  <h2 style="font-size:1.1rem;margin-top:1.5rem;margin-bottom:.5rem;color:var(--accent)">Ver un agente específico</h2>
+  <div class="grid" id="agentGrid"></div>
+</section>
+<footer class="footer">Hermes UI — orchestration layer · 25 specialized agents · SVG-only · responsive · accessible</footer>
+<script>
+// Datos de agentes
+const agents=[
+{name:"Sentry",function:"Monitorea y alerta."},{name:"Cartographer",function:"Mapea archivos."},
+{name:"Scribe",function:"Documenta cambios."},{name:"Architect",function:"Propone refactor."},
+{name:"Curator",function:"Filtra contenido."},{name:"Echo",function:"Confirma acciones."},
+{name:"Lens",function:"Revisa código."},{name:"Pulse",function:"Mide rendimiento."},
+{name:"Bridge",function:"Conecta APIs."},{name:"Vault",function:"Gestiona credenciales."},
+{name:"Oracle",function:"Responde con contexto."},{name:"Warden",function:"Protege acceso."},
+{name:"Beacon",function:"Envía alertas."},{name:"Forge",function:"Genera builds."},
+{name:"Mirror",function:"Sincroniza repos."},{name:"Chronos",function:"Cron y tareas."},
+{name:"Herald",function:"Reporta progreso."},{name:"Compass",function:"Orienta navegación."},
+{name:"Tinker",function:"Experimenta seguro."},{name:"Aegis",function:"Defiende ataques."},
+{name:"Aurora",function:"Mejora estética."},{name:"Cipher",function:"Encripta datos."},
+{name:"Nomad",function:"Migraciones/backups."},{name:"Seer",function:"Predice tendencias."},
+{name:"Anchor",function:"Restaura estabilidad."}
+];
+
+const s=document.getElementById('agentSelect');
+const info=document.getElementById('agentInfo');
+const grid=document.getElementById('agentGrid');
+const chatArea=document.getElementById('chatArea');
+
+// Llenar selector
+agents.forEach((a,i)=>{
+  const o=document.createElement('option'); o.value=i; o.textContent=a.name; s.appendChild(o);
+});
+
+// Persistencia
+const saved = localStorage.getItem('hermesAgent');
+if(saved !== null) s.value = saved;
+
+// Vista única: mostrar detalle al cambiar
+s.addEventListener('change',()=>{
+  localStorage.setItem('hermesAgent', s.value);
+  const idx=+s.value;
+  if(idx===-1) return;
+  info.innerHTML=`<strong>${agents[idx].name}</strong> — ${agents[idx].function}`;
+  addMsg('agent', `Modo ${agents[idx].name}: ${agents[idx].function}. Estoy trabajando en segundo plano.`);
+});
+
+// Grid de agentes (ver de forma única)
+agents.forEach((a,i)=>{
+  const c=document.createElement('article');
+  c.className='card';
+  c.innerHTML=`<h3>${a.name}</h3><p>${a.function}</p>`;
+  c.addEventListener('click',()=>{ s.value=i; s.dispatchEvent(new Event('change')); });
+  grid.appendChild(c);
+});
+
+function addMsg(sender,text){
+  const d=document.createElement('div');
+  d.className='msg msg-'+sender;
+  d.innerHTML='<b>'+ (sender==='agent'?'Hermes':'Tú')+'</b><br>'+text;
+  chatArea.appendChild(d);
+  chatArea.scrollTop=chatArea.scrollHeight;
+}
+
+function sendMsg(e){
+  e.preventDefault();
+  const v=document.getElementById('msgInput').value.trim();
+  if(!v) return;
+  addMsg('user',v);
+  document.getElementById('msgInput').value='';
+  // Respuesta automatizada sin detener trabajo
+  const idx=+s.value;
+  const agentName = idx>=0 ? agents[idx].name : 'Principal';
+  setTimeout(()=>{
+    const r=['Entendido. Estoy procesando en paralelo.',
+    'Confirmo acción; mis agentes siguen activos.',
+    'Respuesta recibida. El loop continúa.',
+    'Nota guardada en contexto Hermes UI.',
+    'Sigo trabajando. Te aviso cuando termine.'][Math.floor(Math.random()*5)];
+    addMsg('agent', agentName + ': ' + r);
+  }, 700);
+}
+
+// Auto-bienvenida
+addMsg('agent','Bienvenido a Hermes UI — chat con 25 agentes. Selecciona uno o escribe para hablar con el principal. No se detiene.');
+</script>
+</body>
+</html>

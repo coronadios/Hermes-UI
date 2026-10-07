@@ -1,0 +1,30 @@
+{
+  "project": "Hermes UI",
+  "agents": [
+    {"name":"Sentry","function":"Monitorea el estado del sistema y alerta anomalías."},
+    {"name":"Cartographer","function":"Mapea la estructura de archivos y dependencias del proyecto."},
+    {"name":"Scribe","function":"Documenta cambios, logs y decisiones automáticamente."},
+    {"name":"Architect","function":"Propone mejoras de arquitectura y refactorización."},
+    {"name":"Curator","function":"Filtra contenido irrelevante y organiza la información clave."},
+    {"name":"Echo","function":"Repite y confirma instrucciones antes de ejecutar acciones críticas."},
+    {"name":"Lens","function":"Revisa código en busca de errores, vulnerabilidades y estilo."},
+    {"name":"Pulse","function":"Mide rendimiento, latencia y uso de recursos en tiempo real."},
+    {"name":"Bridge","function":"Conecta APIs externas y sincroniza datos entre sistemas."},
+    {"name":"Vault","function":"Gestiona credenciales, tokens y acceso seguro."},
+    {"name":"Oracle","function":"Responde preguntas del usuario basándose en contexto y memoria."},
+    {"name":"Warden","function":"Protege la privacidad y aplica reglas de acceso."},
+    {"name":"Beacon","function":"Envía notificaciones y alertas al usuario o canales externos."},
+    {"name":"Forge","function":"Genera y compila código, builds y artefactos."},
+    {"name":"Mirror","function":"Refleja cambios locales a repositorios remotos."},
+    {"name":"Chronos","function":"Gestiona tareas programadas, cron y temporizadores."},
+    {"name":"Herald","function":"Reporta progreso y resultados de tareas en curso."},
+    {"name":"Compass","function":"Orienta al usuario en navegación y decisiones dentro de la UI."},
+    {"name":"Tinker","function":"Experimenta con configuraciones nuevas sin afectar el sistema principal."},
+    {"name":"Aegis","function":"Defiende contra ataques, spam y accesos no autorizados."},
+    {"name":"Aurora","function":"Mejora la estética y experiencia visual de la interfaz."},
+    {"name":"Cipher","function":"Encripta y desencripta datos sensibles de forma transparente."},
+    {"name":"Nomad","function":"Gestiona migraciones, backups y movilidad de datos."},
+    {"name":"Seer","function":"Predice tendencias y recomienda acciones preventivas."},
+    {"name":"Anchor","function":"Mantiene la estabilidad del sistema y restaura estados seguros."}
+  ]
+}

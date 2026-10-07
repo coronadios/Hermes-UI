@@ -1,0 +1,6 @@
+{
+  "provider": "dual",
+  "gemini": "env:GEMINI_KEY",
+  "openrouter": "env:OPENROUTER_KEY",
+  "usage": "Agentes: Oracle, Lens, Architect, Seer, Tinker usan Gemini para razonamiento; Bridge, Beacon, Forge usan OpenRouter para conectividad/respuestas."
+}
